@@ -8,9 +8,11 @@ TARGET = UGlobalHotkey
 TEMPLATE = lib
 CONFIG += c++11
 
+DESTDIR = $$PWD/_bin
+
 # Switch ABI to export (vs import, which is default)
 DEFINES += UGLOBALHOTKEY_LIBRARY
 
-include(uglobalhotkey-headers.pri)
-include(uglobalhotkey-sources.pri)
-include(uglobalhotkey-libs.pri)
+include(lib/uglobalhotkey-headers.pri)
+include(lib/uglobalhotkey-sources.pri)
+include(lib/uglobalhotkey-libs.pri)
