@@ -3,7 +3,7 @@
 #include <windows.h>
 #elif defined(Q_OS_LINUX)
 #include <QWindow>
-#include <qpa/qplatformnativeinterface.h>
+#include <qpa/qplatformnativeinterface.h> // apt-get install qtbase5-private-dev
 #include <QApplication>
 #endif
 

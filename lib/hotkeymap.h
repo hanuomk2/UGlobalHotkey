@@ -14,7 +14,7 @@ inline size_t QtKeyToWin(size_t key)
 #elif defined(Q_OS_LINUX)
 #include "ukeysequence.h"
 #include "xcb/xcb.h"
-#include "xcb/xcb_keysyms.h"
+#include "xcb/xcb_keysyms.h" // apt-get install libxcb-keysyms1-dev
 #include "X11/keysym.h"
 
 struct UKeyData {
