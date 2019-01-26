@@ -42,7 +42,7 @@ OSStatus macHotkeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, vo
 }
 #endif
 
-void UGlobalHotkeys::registerHotkey(const UKeySequence& keySeq, size_t id)
+void UGlobalHotkeys::registerHotkey(UKeySequence const &keySeq, size_t id)
 {
 	if (keySeq.Size() == 0) {
 		throw UException("Empty hotkeys");
@@ -70,10 +70,10 @@ void UGlobalHotkeys::registerHotkey(const UKeySequence& keySeq, size_t id)
 		}
 	}
 
-	if (!RegisterHotKey((HWND)winId(), id, winMod, key)) {
-		qDebug() << "Error activating hotkey!";
-	} else {
+	if (RegisterHotKey((HWND)winId(), id, winMod, key)) {
 		Registered.insert(id);
+	} else {
+//		qDebug() << "Error activating hotkey!";
 	}
 #elif defined(Q_OS_LINUX)
 	regLinuxHotkey(keySeq, id);
@@ -161,7 +161,7 @@ bool UGlobalHotkeys::winEvent(MSG *message, long *result)
 	return false;
 }
 
-bool UGlobalHotkeys::nativeEvent(const QByteArray &eventType, void *message, long *result)
+bool UGlobalHotkeys::nativeEvent(QByteArray const &eventType, void *message, long *result)
 {
 	Q_UNUSED(eventType);
 	return winEvent((MSG*)message, result);
@@ -169,7 +169,7 @@ bool UGlobalHotkeys::nativeEvent(const QByteArray &eventType, void *message, lon
 
 #elif defined(Q_OS_LINUX)
 
-bool UGlobalHotkeys::nativeEventFilter(const QByteArray &eventType, void *message, long *result) {
+bool UGlobalHotkeys::nativeEventFilter(QByteArray const &eventType, void *message, long *result) {
 	Q_UNUSED(eventType);
 	Q_UNUSED(result);
 	return linuxEvent(static_cast<xcb_generic_event_t*>(message));
