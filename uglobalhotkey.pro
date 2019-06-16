@@ -16,3 +16,5 @@ DEFINES += UGLOBALHOTKEY_LIBRARY
 include(lib/uglobalhotkey-headers.pri)
 include(lib/uglobalhotkey-sources.pri)
 include(lib/uglobalhotkey-libs.pri)
+
+RESOURCES +=

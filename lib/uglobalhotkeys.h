@@ -35,6 +35,7 @@ public:
 	explicit UGlobalHotkeys(QWidget *parent = 0);
 	void registerHotkey(QString const &keySeq, size_t id = 1);
 	void registerHotkey(UKeySequence const &keySeq, size_t id = 1);
+    void registerHotkey(size_t winMod, size_t key, size_t id = 1); ///////////////////////////// 2019.05.08 add Virtual KeyCode対応
 	void unregisterHotkey(size_t id = 1);
 	void unregisterAllHotkeys();
 	~UGlobalHotkeys();

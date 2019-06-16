@@ -102,6 +102,24 @@ void UGlobalHotkeys::registerHotkey(UKeySequence const &keySeq, size_t id)
 #endif
 }
 
+///////////////////////////////////////////////////////////////////////// 2019.05.08 add Virtual KeyCode対応
+void UGlobalHotkeys::registerHotkey(size_t winMod, size_t key, size_t id)
+{
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    if (Registered.find(id) != Registered.end()) {
+        unregisterHotkey(id);
+    }
+#endif
+#if defined(Q_OS_WIN)
+    if (RegisterHotKey((HWND)winId(), id, winMod, key)) {
+        Registered.insert(id);
+    } else {
+//		qDebug() << "Error activating hotkey!";
+    }
+#endif
+}
+///////////////////////////////////////////////////////////////////////// 2019.05.08 end Virtual KeyCode対応
+
 void UGlobalHotkeys::unregisterHotkey(size_t id)
 {
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)

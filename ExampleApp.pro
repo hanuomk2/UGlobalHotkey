@@ -44,3 +44,11 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    app/resource.qrc
+
+
+win32: LIBS += -lgdi32
+
+win32: LIBS += -lQt5WinExtras

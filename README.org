@@ -1,0 +1,70 @@
+#+TITLE:	ScreenCapture And SystemtrayIcon
+#+AUTHOR:	hanuomk2(odaba)
+#+DATE:		2019-06-05
+
+* ScreenCapture And SystemIcon
+
+Qt(C++)で作成したキャプチャツールです。
+UGlobalHotkeyを利用して[PrintScreen]キーまたは[Alt]+[PrintScreen]キーの押下で
+スクリーン全体またはアクティブウィンドウをキャプチャし、クリップボードにコピーします
+(キャプチャした領域からDIB BITMAPを作成し、QPixmapに変換しています)。
+また、SystemtrayIconにアイコンを登録し、右クリックでメニュー表示できます。
+キャプチャ後QPixmapをメッセージ表示します。
+(QtなのにWindows OSでしか動作しません)
+
+** 謝辞
+
+[[https://qiita.com/soramimi_jp/items/c2be72a1493012e20d37][Qtでグローバルホットキーを利用する]]
+にて、公開されているソースコードを元にしています([[https://github.com/soramimi/UGlobalHotkey][github]]からフォーク)。
+なお、本ソースコードはフォークのフォークで源の[[https://github.com/falceeffect/UGlobalHotkey][ソースコード]]
+はUGlobalHotkeyというライブラリです。
+
+先人の方々のご好意で本ソースコードを公開できました。本当にありがとうございます。
+
+** 環境
+
+ - OS: 		Microsoft Windows 10 pro 64bit
+ - IDE: 	QtCreator 4.9.0 
+ - Qt(Ver.):Qt 5.12.2(mingw 7.3.0 32ビット)
+
+** 使い方
+
+適当なフォルダにzipファイルを展開し、
+Qt Creatorで"uglobalhotkey.pro"ファイル、"ExampleApp.pro"ファイルの順番で開き、
+コンパイル(ビルド)して実行して下さい。
+
+** ライセンス
+
+Public Domain
+(ソースコードは、Public Domainです(源の意思に従います。"README.md"ファイル参照)。
+ もちろん、Qtを使用しているので、コンパイルして再配布する場合、
+ ライブラリ等Qtの部分はLGPL 3.0となります)
+
+** 問題点
+ - Windows Aeroには非対応です(Windows 8以降であれば、desktop duplication apiで対応できそうですが、
+   そこまで試してないです)。
+ - Qtなのに、Windows OS以外非対応です。
+
+
+** その他
+
+ - Virtual KeyCodeに対応するため、"uglobalhotkeys.h"ファイル、"uglobalhotkeys.cpp"ファイルで、
+   registerHotkey()をオーバーロードして、VK_SNAPSHOT等を直接指定できるようにしています。
+   
+ 
+ - "main.cpp"ファイルからshow_systemtrayicon()を呼び出す事で、システムトレイにアイコンを表示します。
+
+ - [PrintScreen]キーまたは[Alt]+[PrintScreen]キーの押下で、スクリーン全体またはアクティブウィンドウの
+   領域をキャプチャします。
+
+ - QPixmap::grabWindow()だと、アクティブウィンドウのクライアント領域しかキャプチャできないので、
+   WindowsAPIで、キャプチャした領域からDIB BITMAPを作成し、QPixmapに変換しています
+   (DDB BITMAPでも試してみましたが、上手く変換できませんでした)。
+
+ - キャプチャ後QPixmapをshowMessage()でメッセージ表示します。
+ 
+ - 今回Windows Aeroだとキャプチャできない場合があると初めて知りました。
+   結論として、キャプチャツールを作成する場合、キャプチャ取得はOSにまかせて、
+   クリップボードを監視した方が楽そうな感じです。
+ 
+ 

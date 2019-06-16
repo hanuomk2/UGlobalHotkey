@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/Capture.bmp</file>
+    </qresource>
+</RCC>
